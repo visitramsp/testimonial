@@ -1,7 +1,12 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { FiArrowUpRight } from "react-icons/fi";
+import { ThemeContext } from '../contaxts/ThemeContaxt';
+import { MdDarkMode, MdOutlineLightMode } from 'react-icons/md';
 
 export default function Home() {
+  const { darkMode, toggleDarkMode,loading } = useContext(ThemeContext);
+
+  console.log(darkMode, "darkMode");
 
   const cards = [
     {
@@ -23,21 +28,26 @@ export default function Home() {
   ];
 
   return (
-    <div className='bg-gray-50'>
-
+    <div className='bg-gray-50 dark:bg-black'>
+      {loading && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+          <div className="w-16 h-16 border-4 border-dashed border-white rounded-full animate-spin"></div>
+        </div>
+      )}
       <div className=' container mx-auto'>
         <div className='flex items-center py-4 justify-between'>
           <div className=' flex gap-2 items-center'>
-            <div className='w-10 bg-black rounded-full'>
-              <div className='border h-7 w-7 shadow-md  text-center bg-white  border-black rounded-full'>s</div>
+            <div className='w-10 bg-black dark:bg-white rounded-full'>
+              <div className='border h-7 w-7 shadow-md  text-center bg-white  border-black dark:border-white rounded-full'>s</div>
             </div>
-            <span className='font-serif font-medium text-lg'>SERENITY YOGA</span>
+            <span className='font-serif font-medium text-lg dark:text-white'>SERENITY YOGA</span>
           </div>
           <div className='flex flex-row items-center gap-5'>
             {
               ["About Us", "Revies", "Training", "Classes"].map((item, index) =>
                 <div className=' bg-white p-2 w-24 text-center font-medium text-gray-600 rounded-full border border-gray-200 text-sm' key={index}>{item}</div>)
             }
+            {darkMode ? <MdDarkMode onClick={toggleDarkMode} size={30} className='dark:text-white' /> : <MdOutlineLightMode onClick={toggleDarkMode} size={30} className='text-orange-300' />}
           </div>
         </div>
         <div className="bg-[#e7e0f9]  rounded-3xl overflow-hidden flex flex-col md:flex-row items-center justify-between">
@@ -133,7 +143,7 @@ export default function Home() {
 
         {/* Floating circle images */}
         {[
-          { src: "https://cdn.pixabay.com/photo/2022/07/09/21/50/yoga-7311798_1280.jpg", style: "top-10 left-20" },
+          { src: "https://cdn.pixabay.com/photo/2022/07/09/21/50/yoga-7311798_1280.jpg", style: "bottom-40 left-72" },
           { src: "https://cdn.pixabay.com/photo/2018/01/01/01/56/yoga-3053487_1280.jpg", style: "top-40 left-60" },
           { src: "https://cdn.pixabay.com/photo/2018/07/06/12/12/yoga-3520275_1280.jpg", style: "top-5 left-1/2" },
           { src: "https://cdn.pixabay.com/photo/2022/07/09/21/50/yoga-7311798_1280.jpg", style: "top-20 right-1/3" },
